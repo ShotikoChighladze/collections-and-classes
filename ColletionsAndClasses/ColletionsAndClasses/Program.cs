@@ -1,87 +1,111 @@
-﻿// შენ გაქვს კომპანია და გინდა შექმნა პროგრამა, რომელიც თანამშრომლების სახელფასო მონაცემებისა
-// და ნამუშევარი დროის მიხედვით დაინგარიშებს ჯამურ ანაზღაურებას.
-// ნამუშევარ საათებს ვითვლით ყოველდღიურად.
-// თანამშრომელს ანაზღაურებს ვაძლევთ საათების მიხედვით.
-// თუ ნამაშრომელმა იმუშავა დღეში 8-საათზე მეტი მაშინ ვუხდით ზეგანაკვეთურ ანაზღაურებას.
-// ზეგანაკვეთური ანაზღაურება ერიცხება მხოლოდ იმ საათებზე რომელი 8-სამუშაო საათის მიღმაა.
-// მაგალითად თუ იმუშავა 10 საათი, ზეგანაკვეთური ანაზღაურება ერიცხება 2-საათზე.
-// თანამშრომლებს ზეგანაკვეთურ ნამუშევარ საათებში ვუხდით ხელფასის 125%-ს
-// გარდა ჯამური ხელფასისა პროგრამამ უნდა გამოიტანოს იმ თანამშრომლების სია რომლებმაც
-// ზეგანაკვეთურად იმუშავეს და მათთვის მისაცემი ანაზღაურება
-//
-
-internal enum Colors
+namespace GeoLabExercise._1
 {
-    White,
-    Green,
-    Red
-}
 
-internal class Program
-{
-    public static void Main()
+    internal class Program
     {
-        var company = new Company
+        static void Main(string[] args)
         {
-            Employees = GetEmployees()
-        };
 
-        var dateTime = DateTime.Now;
+           
+            Person person = new Person();
 
-        var color = Colors.Green;
+            person.Name = "Giorgi";
+            person.Age = 25;
 
-        switch (color)
-        {
-            case Colors.White:
+            person.GetInfo();
 
-                break;
+            Car car = new Car();
 
-            case Colors.Green:
-                break;
+            car.Brand = "Mustang";
+            car.Year = 2026;
+            car.GetCarInfo();
 
-            case Colors.Red:
-                break;
+            Product product = new Product();
+            
 
-            default:
-                throw new ArgumentOutOfRangeException();
+            product.Name = "Cheese";
+            product.Price = -100;
+            product.MoneyType = Currency.USD;
+
+            product.GetProductInfo();
+
         }
 
-        var totalAmountToPay = company.CalculateTotalSalary();
-
-        Console.WriteLine($"Total amount to pay: {totalAmountToPay:C}");
-    }
-
-    private static List<Employee> GetEmployees()
-    {
-        return new List<Employee>
+        class Person
         {
-            new Employee
-            {
-                Name = "Daviti",
-                Wage = 70.06m,
-                WorkedHours = 7
-            },
+            public string Name { get; set; }
 
-            new Employee
-            {
-                Name = "Gia",
-                Wage = 80.01m,
-                WorkedHours = 8
-            },
+            public byte Age { get; set; }
 
-            new Employee
-            {
-                Name = "Gela",
-                Wage = 50.19m,
-                WorkedHours = 11
-            },
 
-            new Employee
+
+            public void GetInfo()
             {
-                Name = "Mariami",
-                Wage = 82.00m,
-                WorkedHours = 9
-            },
-        };
+                if (Age < 0)
+                {
+                    Age = 0;
+                }
+                else if (Age > 120)
+                {
+                    Age = 120;
+                }
+
+                Console.WriteLine($"Person name is {Name} and age is {Age}");
+            }
+
+        }
+
+        class Car
+        {
+            public string Brand { get; set; }
+
+            public int Year { get; set; }
+
+            public void GetCarInfo()
+            {
+                DateTime dateTime = DateTime.Now;
+
+                if (Year < 1886)
+                {
+                    Year = 1886;
+                }
+                else if (Year > dateTime.Year)
+                {
+                    Year = dateTime.Year;
+                }
+
+                Console.WriteLine($"Brand {Brand} Year {Year}");
+
+            }
+
+
+
+        }
+
+        class Product
+        {
+            public string Name { get; set; }
+
+            public decimal Price { get; set; }
+
+            public Currency MoneyType { get; set; }
+
+            public void GetProductInfo()
+            {
+                if(Price < 0)
+                {
+                    Price = 0;
+                }
+
+                Console.WriteLine($"Product Name - {Name} Product Price - {Price} Product Currency - {MoneyType}");
+            }
+        }
+
+        enum Currency
+        {
+            GEl,
+            USD,
+            EUR
+        }
     }
 }
